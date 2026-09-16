@@ -682,6 +682,7 @@ class ProjectSpecTests: XCTestCase {
                                                                  BuildRule(fileType: .type("sourcecode.swift"),
                                                                            action: .compilerSpec("com.apple.xcode.tools.swift.compiler"),
                                                                            name: nil,
+                                                                           inputFiles: [],
                                                                            outputFiles: ["bar"],
                                                                            outputFilesCompilerFlags: ["foo"],
                                                                            runOncePerArchitecture: true)],

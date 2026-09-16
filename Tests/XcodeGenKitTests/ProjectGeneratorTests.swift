@@ -1523,13 +1523,19 @@ class ProjectGeneratorTests: XCTestCase {
                         fileType: .pattern("*.plist"),
                         action: .compilerSpec("com.apple.build-tasks.copy-plist-file")
                     ),
+                    BuildRule(
+                        fileType: .pattern("*.metal"),
+                        action: .compilerSpec("com.apple.compilers.metal"),
+                        inputFiles: []
+                    ),
                 ]
                 let pbxProject = try scriptSpec.generatePbxProj()
 
                 let buildRules = pbxProject.buildRules
-                try expect(buildRules.count) == 2
+                try expect(buildRules.count) == 3
                 let first = buildRules.first { $0.name == "My Rule" }!
-                let second = buildRules.first { $0.name != "My Rule" }!
+                let second = buildRules.first { $0.filePatterns == "*.plist" }!
+                let third = buildRules.first { $0.filePatterns == "*.metal" }!
 
                 try expect(first.name) == "My Rule"
                 try expect(first.isEditable) == true
@@ -1549,6 +1555,8 @@ class ProjectGeneratorTests: XCTestCase {
                 try expect(second.inputFiles).beNil()
                 try expect(second.outputFiles) == []
                 try expect(second.outputFilesCompilerFlags) == []
+
+                try expect(third.inputFiles) == []
             }
 
             $0.it("generates dependency build file settings") {

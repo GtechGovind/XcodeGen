@@ -675,6 +675,7 @@ class ProjectSpecTests: XCTestCase {
                                                     buildRules: [BuildRule(fileType: .pattern("*.xcassets"),
                                                                            action: .script("pre_process_swift.py"),
                                                                            name: "My Build Rule",
+                                                                           inputFiles: ["$(SRCROOT)/Assets.xcassets"],
                                                                            outputFiles: ["$(SRCROOT)/Generated.swift"],
                                                                            outputFilesCompilerFlags: ["foo"],
                                                                            runOncePerArchitecture: false),
